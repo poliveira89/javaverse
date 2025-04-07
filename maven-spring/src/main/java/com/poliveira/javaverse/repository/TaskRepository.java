@@ -7,8 +7,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TaskRepository extends JpaRepository<TaskVO, Long> {
 
-    // Custom query methods can be defined here if needed
-    // For example, to find tasks by status:
-    // List<TaskVO> findByStatus(Status status);
+  // Custom query methods can be defined here if needed
+  // For example, to find tasks by status:
+  // List<TaskVO> findByStatus(Status status);
 
 }
