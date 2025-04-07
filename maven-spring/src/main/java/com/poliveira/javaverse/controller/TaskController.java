@@ -1,35 +1,54 @@
 package com.poliveira.javaverse.controller;
 
+import static org.springframework.http.HttpStatus.CREATED;
+
+import com.poliveira.javaverse.model.SimpleTaskVO;
+import com.poliveira.javaverse.model.TaskVO;
+import com.poliveira.javaverse.service.TaskService;
+import java.util.List;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/tasks")
 public class TaskController {
 
-  // Create Task
-  public void createTask() {
-    // Implementation for creating a task
+  private final TaskService taskService;
+
+  @PostMapping
+  @ResponseStatus(CREATED)
+  public TaskVO createTask(@RequestBody SimpleTaskVO taskVO) {
+    return taskService.createTask(taskVO);
   }
 
-  // Read Task
-  public void readTask() {
-    // Implementation for reading a task
+  @GetMapping("/{id}")
+  public TaskVO readTask(@PathVariable Long id) {
+    return taskService.getTaskById(id);
   }
 
-  // Update Task
-  public void updateTask() {
-    // Implementation for updating a task
+  @PatchMapping("/{id}")
+  public TaskVO updateTask(@PathVariable Long id, @RequestBody SimpleTaskVO taskVO) {
+    return taskService.updateTask(id, taskVO);
   }
 
-  // Delete Task
-  public void deleteTask() {
-    // Implementation for deleting a task
+  @DeleteMapping("/{id}")
+  public void deleteTask(@PathVariable Long id) {
+    // @TODO return object with delete status
+    taskService.deleteTask(id);
   }
 
-  // List Tasks
-  public void listTasks() {
-    // Implementation for listing tasks
+  @GetMapping
+  public List<TaskVO> listTasks() {
+    return taskService.getAllTasks();
   }
 
   // Search Task
