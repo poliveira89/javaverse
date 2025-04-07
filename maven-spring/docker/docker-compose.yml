@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  # @TODO add consul
+
+  # @TODO add vault
+
+  # @TODO connect all
+
+  db:
+    image: postgres:17.4-alpine3.21
+    container_name: postgres
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: tasks
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
+    driver: local
