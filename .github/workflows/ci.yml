@@ -32,11 +32,11 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-maven-
 
-      - name: Format code with Spotless
-        run: mvn spotless:apply -U
-
       - name: Compile code
         run: mvn compile
+
+      - name: Format code with Spotless
+        run: mvn spotless:apply -U
 
   test:
     runs-on: ubuntu-latest
