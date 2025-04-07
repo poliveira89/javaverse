@@ -10,13 +10,13 @@ import lombok.Data;
 @Entity
 public class TaskVO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    private String title;
-    private String description;
-    private Status status;
-    private long createdAt;
-    private long updatedAt;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private long id;
 
+  private String title;
+  private String description;
+  private Status status;
+  private long createdAt;
+  private long updatedAt;
 }
