@@ -40,6 +40,12 @@ jobs:
     needs: build
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4.2.2
+        with:
+          sparse-checkout: |
+            maven-spring
+
       - name: Check code formatting
         run: mvn spotless:check -f maven-spring/pom.xml
 
@@ -48,6 +54,12 @@ jobs:
     needs: build
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4.2.2
+        with:
+          sparse-checkout: |
+            maven-spring
+
       - name: Run tests
         run: mvn test -f maven-spring/pom.xml
 
@@ -56,6 +68,12 @@ jobs:
     needs: build
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4.2.2
+        with:
+          sparse-checkout: |
+            maven-spring
+
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v2.21.0
         with:
