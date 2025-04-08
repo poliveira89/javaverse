@@ -46,6 +46,19 @@ jobs:
           sparse-checkout: |
             maven-spring
 
+      - name: Set up JDK 21 (Temurin)
+        uses: actions/setup-java@v4.7.0
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Cache Maven packages
+        uses: actions/cache@v4.2.3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-maven-
+
       - name: Check code formatting
         run: mvn spotless:check -f maven-spring/pom.xml
 
@@ -60,7 +73,20 @@ jobs:
           sparse-checkout: |
             maven-spring
 
-      - name: Run tests
+      - name: Set up JDK 21 (Temurin)
+        uses: actions/setup-java@v4.7.0
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Cache Maven packages
+        uses: actions/cache@v4.2.3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-maven-
+
+      - name: Rclearun tests
         run: mvn test -f maven-spring/pom.xml
 
   codeql:
@@ -73,6 +99,19 @@ jobs:
         with:
           sparse-checkout: |
             maven-spring
+
+      - name: Set up JDK 21 (Temurin)
+        uses: actions/setup-java@v4.7.0
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Cache Maven packages
+        uses: actions/cache@v4.2.3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-maven-
 
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v2.21.0
