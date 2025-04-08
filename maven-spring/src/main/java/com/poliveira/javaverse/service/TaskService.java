@@ -48,7 +48,12 @@ public class TaskService {
     return null;
   }
 
-  public void deleteTask(Long id) {
-    taskRepository.deleteById(id);
+  public boolean deleteTask(Long id) {
+    try {
+      taskRepository.deleteById(id);
+      return true;
+    } catch (Exception e) {
+      return false;
+    }
   }
 }
