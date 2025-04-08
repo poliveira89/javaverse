@@ -35,8 +35,13 @@ jobs:
       - name: Compile code
         run: mvn compile
 
-      - name: Format code with Spotless
-        run: mvn spotless:apply -U
+  format:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Check code formatting
+        run: mvn spotless:check
 
   test:
     runs-on: ubuntu-latest
