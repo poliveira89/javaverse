@@ -2,16 +2,15 @@ package com.poliveira.javaverse;
 
 import static com.poliveira.javaverse.model.Status.TODO;
 import static java.lang.System.currentTimeMillis;
-import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-import com.poliveira.javaverse.model.SimpleTaskVO;
 import com.poliveira.javaverse.model.TaskVO;
 import com.poliveira.javaverse.repository.TaskRepository;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -80,14 +79,14 @@ public class TasksRepositoryTest {
   @Test
   public void testFindById() {
     TaskVO task1 =
-            TaskVO.builder()
-                    .id(1L)
-                    .title("Task 1")
-                    .description("Description 1")
-                    .status(TODO)
-                    .createdAt(currentTimeMillis())
-                    .updatedAt(currentTimeMillis())
-                    .build();
+        TaskVO.builder()
+            .id(1L)
+            .title("Task 1")
+            .description("Description 1")
+            .status(TODO)
+            .createdAt(currentTimeMillis())
+            .updatedAt(currentTimeMillis())
+            .build();
 
     when(taskRepository.findById(1L)).thenReturn(java.util.Optional.of(task1));
 

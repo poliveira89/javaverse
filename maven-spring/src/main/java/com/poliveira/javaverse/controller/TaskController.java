@@ -3,6 +3,7 @@ package com.poliveira.javaverse.controller;
 import static org.springframework.http.HttpStatus.CREATED;
 
 import com.poliveira.javaverse.model.SimpleTaskVO;
+import com.poliveira.javaverse.model.SuccessVO;
 import com.poliveira.javaverse.model.TaskVO;
 import com.poliveira.javaverse.service.TaskService;
 import java.util.List;
@@ -41,9 +42,11 @@ public class TaskController {
   }
 
   @DeleteMapping("/{id}")
-  public void deleteTask(@PathVariable Long id) {
-    // @TODO return object with delete status
-    taskService.deleteTask(id);
+  public SuccessVO deleteTask(@PathVariable Long id) {
+    return SuccessVO.builder()
+        .success(taskService.deleteTask(id))
+        .message("Task deleted successfully")
+        .build();
   }
 
   @GetMapping
