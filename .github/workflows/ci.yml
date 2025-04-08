@@ -118,7 +118,7 @@ jobs:
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v2.21.0
         with:
-          languages: java-kotlin
+          languages: java
           source-root: maven-spring
 
       - name: Autobuild
