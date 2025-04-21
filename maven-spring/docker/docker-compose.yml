@@ -7,9 +7,20 @@ services:
 
   # @TODO connect all
 
+  # Run javaverse image connect with database
+  javaverse:
+      image: javaverse-tasks:0.0.1
+      environment:
+      - DATABASE_URL=postgresql://db:5432/tasks
+      ports:
+      - "5190:5190"
+      depends_on:
+        db:
+          condition: service_healthy
+
+
   db:
     image: postgres:17.4-alpine3.21
-    container_name: postgres
     environment:
       POSTGRES_USER: myuser
       POSTGRES_PASSWORD: mypassword
@@ -18,6 +29,11 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U myuser -d tasks" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 volumes:
   postgres_data:
