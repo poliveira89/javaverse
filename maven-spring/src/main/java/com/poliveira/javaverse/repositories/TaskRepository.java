@@ -1,6 +1,6 @@
-package com.poliveira.javaverse.repository;
+package com.poliveira.javaverse.repositories;
 
-import com.poliveira.javaverse.model.TaskVO;
+import com.poliveira.javaverse.models.TaskVO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

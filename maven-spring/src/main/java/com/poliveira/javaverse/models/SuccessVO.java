@@ -1,4 +1,4 @@
-package com.poliveira.javaverse.model;
+package com.poliveira.javaverse.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

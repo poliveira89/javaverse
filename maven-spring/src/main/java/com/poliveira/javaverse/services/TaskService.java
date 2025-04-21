@@ -1,12 +1,12 @@
-package com.poliveira.javaverse.service;
+package com.poliveira.javaverse.services;
 
-import static com.poliveira.javaverse.model.Status.TODO;
+import static com.poliveira.javaverse.models.Status.TODO;
 import static java.lang.System.currentTimeMillis;
 import static java.util.Objects.nonNull;
 
-import com.poliveira.javaverse.model.SimpleTaskVO;
-import com.poliveira.javaverse.model.TaskVO;
-import com.poliveira.javaverse.repository.TaskRepository;
+import com.poliveira.javaverse.models.SimpleTaskVO;
+import com.poliveira.javaverse.models.TaskVO;
+import com.poliveira.javaverse.repositories.TaskRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

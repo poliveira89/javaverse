@@ -1,11 +1,11 @@
-package com.poliveira.javaverse.controller;
+package com.poliveira.javaverse.controllers;
 
 import static org.springframework.http.HttpStatus.CREATED;
 
-import com.poliveira.javaverse.model.SimpleTaskVO;
-import com.poliveira.javaverse.model.SuccessVO;
-import com.poliveira.javaverse.model.TaskVO;
-import com.poliveira.javaverse.service.TaskService;
+import com.poliveira.javaverse.models.SimpleTaskVO;
+import com.poliveira.javaverse.models.SuccessVO;
+import com.poliveira.javaverse.models.TaskVO;
+import com.poliveira.javaverse.services.TaskService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
