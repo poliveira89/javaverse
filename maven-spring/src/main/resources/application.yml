@@ -12,5 +12,9 @@ spring:
     hibernate:
       ddl-auto: update
 
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+
 server:
   port: 5190
