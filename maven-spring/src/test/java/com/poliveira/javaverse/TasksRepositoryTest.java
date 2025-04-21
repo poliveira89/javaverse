@@ -1,6 +1,6 @@
 package com.poliveira.javaverse;
 
-import static com.poliveira.javaverse.model.Status.TODO;
+import static com.poliveira.javaverse.models.Status.TODO;
 import static java.lang.System.currentTimeMillis;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -8,8 +8,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-import com.poliveira.javaverse.model.TaskVO;
-import com.poliveira.javaverse.repository.TaskRepository;
+import com.poliveira.javaverse.models.TaskVO;
+import com.poliveira.javaverse.repositories.TaskRepository;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
