@@ -3,7 +3,7 @@ spring:
     name: javaverse
 
   datasource:
-    url: jdbc:postgresql://db:5432/tasks
+    url: jdbc:postgresql://localhost:5432/tasks
     username: myuser
     password: mypassword
     driver-class-name: "org.postgresql.Driver"
