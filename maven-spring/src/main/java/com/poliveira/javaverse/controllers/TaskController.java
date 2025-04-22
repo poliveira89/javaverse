@@ -7,6 +7,7 @@ import com.poliveira.javaverse.models.SuccessVO;
 import com.poliveira.javaverse.models.TaskVO;
 import com.poliveira.javaverse.services.TaskService;
 import java.util.List;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,17 +33,17 @@ public class TaskController {
   }
 
   @GetMapping("/{id}")
-  public TaskVO readTask(@PathVariable Long id) {
+  public TaskVO readTask(@PathVariable UUID id) {
     return taskService.getTaskById(id);
   }
 
   @PatchMapping("/{id}")
-  public TaskVO updateTask(@PathVariable Long id, @RequestBody SimpleTaskVO taskVO) {
+  public TaskVO updateTask(@PathVariable UUID id, @RequestBody SimpleTaskVO taskVO) {
     return taskService.updateTask(id, taskVO);
   }
 
   @DeleteMapping("/{id}")
-  public SuccessVO deleteTask(@PathVariable Long id) {
+  public SuccessVO deleteTask(@PathVariable UUID id) {
     return SuccessVO.builder()
         .success(taskService.deleteTask(id))
         .message("Task deleted successfully")
