@@ -1,11 +1,8 @@
 package com.poliveira.javaverse.processors;
 
 import com.poliveira.javaverse.entities.TaskEntity;
-import com.poliveira.javaverse.models.SimpleTaskVO;
-import com.poliveira.javaverse.models.Status;
 import com.poliveira.javaverse.models.TaskVO;
 import com.poliveira.javaverse.utils.TimeUtils;
-import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,16 +20,6 @@ public class MappingService {
         .createdAt(timeUtils.toLocalDateTime(taskVO.getCreatedAt()))
         .updatedAt(timeUtils.toLocalDateTime(taskVO.getUpdatedAt()))
         .status(taskVO.getStatus())
-        .build();
-  }
-
-  public TaskEntity toEntity(SimpleTaskVO simpleTaskVO) {
-    return TaskEntity.builder()
-        .title(simpleTaskVO.getTitle())
-        .description(simpleTaskVO.getDescription())
-        .createdAt(LocalDateTime.now())
-        .updatedAt(LocalDateTime.now())
-        .status(Status.TODO) // Default status
         .build();
   }
 
