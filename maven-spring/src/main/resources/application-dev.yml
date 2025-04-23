@@ -1,16 +1,3 @@
 spring:
-  application:
-    name: javaverse
-
   datasource:
     url: jdbc:postgresql://localhost:5432/tasks
-    username: myuser
-    password: mypassword
-    driver-class-name: "org.postgresql.Driver"
-
-  jpa:
-    hibernate:
-      ddl-auto: update
-
-server:
-  port: 5190

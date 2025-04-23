@@ -1,6 +1,6 @@
 package com.poliveira.javaverse.services;
 
-import static com.poliveira.javaverse.models.Status.TODO;
+import static com.poliveira.javaverse.models.Status.OPEN;
 import static java.lang.System.currentTimeMillis;
 
 import com.poliveira.javaverse.entities.TaskEntity;
@@ -32,9 +32,9 @@ public class TaskService {
   public TaskVO createTask(SimpleTaskVO simpleTaskVO) {
     TaskVO task =
         TaskVO.builder()
-            .title(simpleTaskVO.getTitle())
+            .name(simpleTaskVO.getName())
             .description(simpleTaskVO.getDescription())
-            .status(TODO)
+            .status(OPEN)
             .createdAt(currentTimeMillis())
             .updatedAt(currentTimeMillis())
             .build();
@@ -45,7 +45,7 @@ public class TaskService {
   public TaskVO updateTask(UUID id, SimpleTaskVO task) {
     TaskEntity existingTask = taskRepository.findById(id).orElseThrow();
     TaskVO taskVo = mappingService.toVO(existingTask);
-    taskVo.setTitle(task.getTitle());
+    taskVo.setName(task.getName());
     taskVo.setDescription(task.getDescription());
     taskVo.setUpdatedAt(currentTimeMillis());
     return mappingService.toVO(taskRepository.save(mappingService.toEntity(taskVo)));

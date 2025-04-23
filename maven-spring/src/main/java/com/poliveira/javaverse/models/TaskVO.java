@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 public class TaskVO {
 
   private UUID id;
-  private String title;
+  private String name;
   private String description;
   private Status status;
   private long createdAt;
