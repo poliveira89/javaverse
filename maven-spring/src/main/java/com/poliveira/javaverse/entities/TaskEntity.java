@@ -1,6 +1,5 @@
 package com.poliveira.javaverse.entities;
 
-import com.poliveira.javaverse.models.Status;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -20,7 +19,7 @@ public class TaskEntity {
   @Id @GeneratedValue private UUID id;
 
   @Column(nullable = false)
-  private String title;
+  private String name;
 
   private String description;
 
@@ -32,5 +31,5 @@ public class TaskEntity {
 
   @ManyToOne
   @JoinColumn(name = "status_id")
-  private Status status;
+  private StatusEntity status;
 }

@@ -1,16 +1,18 @@
 package com.poliveira.javaverse;
 
-import static com.poliveira.javaverse.models.Status.TODO;
 import static java.lang.System.currentTimeMillis;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-import com.poliveira.javaverse.models.TaskVO;
+import com.poliveira.javaverse.entities.StatusEntity;
+import com.poliveira.javaverse.entities.TaskEntity;
 import com.poliveira.javaverse.repositories.TaskRepository;
+import com.poliveira.javaverse.utils.TimeUtils;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,108 +24,123 @@ public class TasksRepositoryTest {
 
   @Mock private TaskRepository taskRepository;
 
+  private TimeUtils timeUtils = new TimeUtils();
+  private StatusEntity open =
+      StatusEntity.builder()
+          .id(UUID.fromString("D6127F26-55B6-408D-A010-322FBEC9B1B1"))
+          .name("Open")
+          .build();
+
   @BeforeEach
   public void setUp() {}
 
   @Test
   public void testCreateTask() {
-    TaskVO mockTaskVO =
-        TaskVO.builder()
-            .id(1L)
-            .title("New Task")
+    UUID taskId = UUID.randomUUID();
+    TaskEntity mockTaskEntity =
+        TaskEntity.builder()
+            .id(taskId)
+            .name("New Task")
             .description("This is a new task")
-            .status(TODO)
-            .createdAt(currentTimeMillis())
-            .updatedAt(currentTimeMillis())
+            .status(open)
+            .status(open)
+            .status(open)
+            .createdAt(timeUtils.toLocalDateTime(currentTimeMillis()))
+            .updatedAt(timeUtils.toLocalDateTime(currentTimeMillis()))
             .build();
 
-    when(taskRepository.save(any(TaskVO.class))).thenReturn(mockTaskVO);
+    when(taskRepository.save(any(TaskEntity.class))).thenReturn(mockTaskEntity);
 
-    TaskVO taskVO = taskRepository.save(mockTaskVO);
-    assertTrue(taskVO.getId() > 0);
-    assertEquals(mockTaskVO.getTitle(), taskVO.getTitle());
-    assertEquals(mockTaskVO.getDescription(), taskVO.getDescription());
-    assertEquals(TODO, taskVO.getStatus());
+    TaskEntity taskEntity = taskRepository.save(mockTaskEntity);
+    assertEquals(taskEntity.getId(), taskId);
+    assertEquals(mockTaskEntity.getName(), taskEntity.getName());
+    assertEquals(mockTaskEntity.getDescription(), taskEntity.getDescription());
+    assertEquals(open.getId(), taskEntity.getStatus().getId());
+    assertEquals(open.getName(), taskEntity.getStatus().getName());
   }
 
   @Test
   public void testFindAllTasks() {
-    TaskVO task1 =
-        TaskVO.builder()
-            .id(1L)
-            .title("Task 1")
+    UUID taskId1 = UUID.randomUUID();
+    TaskEntity task1 =
+        TaskEntity.builder()
+            .id(taskId1)
+            .name("Task 1")
             .description("Description 1")
-            .status(TODO)
-            .createdAt(currentTimeMillis())
-            .updatedAt(currentTimeMillis())
+            .createdAt(timeUtils.toLocalDateTime(currentTimeMillis()))
+            .updatedAt(timeUtils.toLocalDateTime(currentTimeMillis()))
             .build();
 
-    TaskVO task2 =
-        TaskVO.builder()
-            .id(2L)
-            .title("Task 2")
+    UUID taskId2 = UUID.randomUUID();
+    TaskEntity task2 =
+        TaskEntity.builder()
+            .id(taskId2)
+            .name("Task 2")
             .description("Description 2")
-            .status(TODO)
-            .createdAt(currentTimeMillis())
-            .updatedAt(currentTimeMillis())
+            .createdAt(timeUtils.toLocalDateTime(currentTimeMillis()))
+            .updatedAt(timeUtils.toLocalDateTime(currentTimeMillis()))
             .build();
 
     when(taskRepository.findAll()).thenReturn(List.of(task1, task2));
 
-    List<TaskVO> tasks = taskRepository.findAll();
+    List<TaskEntity> tasks = taskRepository.findAll();
     assertEquals(2, tasks.size());
-    assertEquals(task1.getTitle(), tasks.get(0).getTitle());
-    assertEquals(task2.getTitle(), tasks.get(1).getTitle());
+    assertEquals(task1.getName(), tasks.get(0).getName());
+    assertEquals(task2.getName(), tasks.get(1).getName());
   }
 
   @Test
   public void testFindById() {
-    TaskVO task1 =
-        TaskVO.builder()
-            .id(1L)
-            .title("Task 1")
+    UUID taskId = UUID.randomUUID();
+    TaskEntity task1 =
+        TaskEntity.builder()
+            .id(taskId)
+            .name("Task 1")
             .description("Description 1")
-            .status(TODO)
-            .createdAt(currentTimeMillis())
-            .updatedAt(currentTimeMillis())
+            .status(open)
+            .createdAt(timeUtils.toLocalDateTime(currentTimeMillis()))
+            .updatedAt(timeUtils.toLocalDateTime(currentTimeMillis()))
             .build();
 
-    when(taskRepository.findById(1L)).thenReturn(java.util.Optional.of(task1));
+    when(taskRepository.findById(taskId)).thenReturn(Optional.of(task1));
 
-    TaskVO foundTask = taskRepository.findById(1L).orElse(null);
+    TaskEntity foundTask = taskRepository.findById(taskId).orElse(null);
     assertNotNull(foundTask);
-    assertEquals(task1.getTitle(), foundTask.getTitle());
+    assertEquals(task1.getName(), foundTask.getName());
     assertEquals(task1.getDescription(), foundTask.getDescription());
   }
 
   @Test
   public void testUpdateTask() {
-    TaskVO mockTaskVO =
-        TaskVO.builder()
-            .id(1L)
-            .title("New Task")
+    UUID taskId = UUID.randomUUID();
+    TaskEntity mockTaskEntity =
+        TaskEntity.builder()
+            .id(taskId)
+            .name("New Task")
             .description("This is an new task")
-            .status(TODO)
-            .createdAt(currentTimeMillis())
-            .updatedAt(currentTimeMillis())
+            .status(open)
+            .createdAt(timeUtils.toLocalDateTime(currentTimeMillis()))
+            .updatedAt(timeUtils.toLocalDateTime(currentTimeMillis()))
             .build();
 
-    when(taskRepository.save(any(TaskVO.class))).thenReturn(mockTaskVO);
+    when(taskRepository.save(any(TaskEntity.class))).thenReturn(mockTaskEntity);
 
-    TaskVO taskVO1 = taskRepository.save(mockTaskVO);
-    assertTrue(taskVO1.getId() > 0);
-    assertEquals(mockTaskVO.getTitle(), taskVO1.getTitle());
-    assertEquals(mockTaskVO.getDescription(), taskVO1.getDescription());
-    assertEquals(TODO, taskVO1.getStatus());
+    TaskEntity taskEntity1 = taskRepository.save(mockTaskEntity);
+    assertEquals(taskEntity1.getId(), taskId);
+    assertEquals(mockTaskEntity.getName(), taskEntity1.getName());
+    assertEquals(mockTaskEntity.getDescription(), taskEntity1.getDescription());
+    assertEquals(open.getId(), taskEntity1.getStatus().getId());
+    assertEquals(open.getName(), taskEntity1.getStatus().getName());
 
     // update the task
-    mockTaskVO.setTitle("Updated Task");
-    when(taskRepository.save(any(TaskVO.class))).thenReturn(mockTaskVO);
+    mockTaskEntity.setName("Updated Task");
+    when(taskRepository.save(any(TaskEntity.class))).thenReturn(mockTaskEntity);
 
-    TaskVO taskVO2 = taskRepository.save(mockTaskVO);
-    assertTrue(taskVO2.getId() > 0);
-    assertEquals(mockTaskVO.getTitle(), taskVO2.getTitle());
-    assertEquals(mockTaskVO.getDescription(), taskVO2.getDescription());
-    assertEquals(TODO, taskVO2.getStatus());
+    TaskEntity taskEntity2 = taskRepository.save(mockTaskEntity);
+    assertEquals(taskEntity2.getId(), taskId);
+    assertEquals(mockTaskEntity.getName(), taskEntity2.getName());
+    assertEquals(mockTaskEntity.getDescription(), taskEntity2.getDescription());
+    assertEquals(open.getId(), taskEntity2.getStatus().getId());
+    assertEquals(open.getName(), taskEntity2.getStatus().getName());
   }
 }
